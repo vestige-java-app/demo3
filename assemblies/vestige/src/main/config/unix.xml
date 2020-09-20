@@ -1,0 +1,93 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+  <id>unix</id>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <!-- vestige repo -->
+  <repositories>
+    <repository>
+      <outputDirectory>repository</outputDirectory>
+      <includeMetadata>true</includeMetadata>
+      <fileMode>0644</fileMode>
+      <directoryMode>0755</directoryMode>
+      <excludes>
+        <exclude>fr.gaellalire.vestige:vestige.assemblies.standard_edition_bootstrap:pom</exclude>
+        <exclude>fr.gaellalire.vestige:vestige.core:jar</exclude>
+        <exclude>fr.gaellalire.vestige:vestige.jvm_enhancer.runtime:zip:unix</exclude>
+        <exclude>fr.gaellalire.vestige:vestige.jvm_enhancer.runtime:zip:windows</exclude>
+        <exclude>fr.gaellalire.vestige:vestige.jpms:zip:modulepatch</exclude>
+      </excludes>
+    </repository>
+  </repositories>
+  <fileSets>
+    <!-- unfiltered resources -->
+    <fileSet>
+      <directory>${basedir}/src/main/assembly/unix</directory>
+      <outputDirectory>/</outputDirectory>
+      <fileMode>0644</fileMode>
+      <directoryMode>0755</directoryMode>
+      <includes>
+        <include>**/*</include>
+      </includes>
+      <excludes>
+        <exclude>.gitattributes</exclude>
+      </excludes>
+    </fileSet>
+    <!-- vestige is unix executable -->
+    <fileSet>
+      <directory>${basedir}/target/classes/unix</directory>
+      <outputDirectory>/</outputDirectory>
+      <fileMode>0755</fileMode>
+      <includes>
+        <include>demo3</include>
+      </includes>
+    </fileSet>
+    <!-- filtered resources -->
+    <fileSet>
+      <directory>${basedir}/target/classes/unix</directory>
+      <outputDirectory>/</outputDirectory>
+      <fileMode>0644</fileMode>
+      <directoryMode>0755</directoryMode>
+      <includes>
+        <include>**/*</include>
+      </includes>
+      <excludes>
+        <exclude>demo3</exclude>
+      </excludes>
+    </fileSet>
+  </fileSets>
+  <!-- libraries -->
+  <dependencySets>
+    <dependencySet>
+      <fileMode>0644</fileMode>
+      <useProjectArtifact>false</useProjectArtifact>
+      <useTransitiveDependencies>false</useTransitiveDependencies>
+      <outputDirectory>/lib</outputDirectory>
+      <includes>
+        <include>fr.gaellalire.vestige:vestige.core:jar</include>
+      </includes>
+    </dependencySet>
+    <dependencySet>
+      <fileMode>0644</fileMode>
+      <useProjectArtifact>false</useProjectArtifact>
+      <useTransitiveDependencies>false</useTransitiveDependencies>
+      <outputDirectory>/lib</outputDirectory>
+      <unpack>true</unpack>
+      <includes>
+        <include>fr.gaellalire.vestige:vestige.jvm_enhancer.runtime:zip:unix</include>
+      </includes>
+    </dependencySet>
+    <dependencySet>
+      <fileMode>0644</fileMode>
+      <useProjectArtifact>false</useProjectArtifact>
+      <useTransitiveDependencies>false</useTransitiveDependencies>
+      <outputDirectory>/lib</outputDirectory>
+      <unpack>true</unpack>
+      <includes>
+        <include>fr.gaellalire.vestige:vestige.jpms:zip:modulepatch</include>
+      </includes>
+    </dependencySet>
+  </dependencySets>
+</assembly>

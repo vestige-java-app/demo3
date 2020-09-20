@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <groupId>fr.gaellalire.vestige_app.demo3</groupId>
+    <artifactId>demo3</artifactId>
+    <version>1.0.0</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>demo3.mod1</artifactId>
+  <name>Demo3 :: Mod1</name>
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+        <excludes>
+          <exclude>**/*.properties</exclude>
+        </excludes>
+      </resource>
+    </resources>
+  </build>
+  <dependencies>
+    <dependency>
+      <groupId>fr.gaellalire.vestige</groupId>
+      <artifactId>vestige.core</artifactId>
+      <version>2</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>fr.gaellalire.vestige</groupId>
+      <artifactId>vestige.spi.resolver.maven</artifactId>
+      <version>1.0</version>
+    </dependency>
+  </dependencies>
+</project>
