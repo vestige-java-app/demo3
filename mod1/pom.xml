@@ -29,13 +29,11 @@
     <dependency>
       <groupId>fr.gaellalire.vestige</groupId>
       <artifactId>vestige.core</artifactId>
-      <version>2</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>fr.gaellalire.vestige</groupId>
       <artifactId>vestige.spi.resolver.maven</artifactId>
-      <version>1.0</version>
     </dependency>
   </dependencies>
 </project>

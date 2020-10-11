@@ -1,10 +1,28 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>fr.gaellalire.vestige_app.demo3</groupId>
   <artifactId>demo3</artifactId>
   <version>1.0.0</version>
   <packaging>pom</packaging>
   <name>Demo3</name>
+  <properties>
+    <vestige.core.version>8</vestige.core.version>
+  </properties>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>fr.gaellalire.vestige</groupId>
+        <artifactId>vestige.core</artifactId>
+        <version>${vestige.core.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>fr.gaellalire.vestige</groupId>
+        <artifactId>vestige.spi.resolver.maven</artifactId>
+        <version>2.0</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <build>
     <plugins>
       <plugin>
@@ -74,4 +92,16 @@
       </build>
     </profile>
   </profiles>
+  <repositories>
+    <repository>
+      <id>gaellalire_nexus</id>
+      <url>https://gaellalire.fr/nexus/content/repositories/releases</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 </project>

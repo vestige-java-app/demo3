@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <groupId>fr.gaellalire.vestige_app.demo3</groupId>
     <artifactId>demo3.assemblies</artifactId>
@@ -8,6 +9,15 @@
   <artifactId>demo3.assemblies.vestige</artifactId>
   <packaging>pom</packaging>
   <name>Demo3 :: Assemblies :: Vestige</name>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-core</artifactId>
+        <version>1.2.3.1</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <build>
     <defaultGoal>install</defaultGoal>
     <plugins>
@@ -124,7 +134,6 @@
     <dependency>
       <groupId>${vestige.groupId}</groupId>
       <artifactId>vestige.core</artifactId>
-      <version>${vestige.core.version}</version>
     </dependency>
     <dependency>
       <groupId>${vestige.groupId}</groupId>
@@ -136,12 +145,16 @@
       <artifactId>vestige.jvm_enhancer.boot</artifactId>
       <version>${vestige.jvm_enhancer.version}</version>
     </dependency>
+    <dependency>
+      <groupId>${vestige.groupId}</groupId>
+      <artifactId>vestige.logback_enhancer</artifactId>
+      <version>1.0</version>
+    </dependency>
   </dependencies>
   <properties>
     <vestige.groupId>fr.gaellalire.vestige</vestige.groupId>
-    <vestige.version>7.0.3-SNAPSHOT</vestige.version>
-    <vestige.jvm_enhancer.version>3.0</vestige.jvm_enhancer.version>
-    <vestige.core.version>2</vestige.core.version>
+    <vestige.version>9.0.1-SNAPSHOT</vestige.version>
+    <vestige.jvm_enhancer.version>4.1</vestige.jvm_enhancer.version>
     <vestige.jpms.version>2.0</vestige.jpms.version>
     <slf4j.version>1.7.25</slf4j.version>
     <logback.version>1.2.3</logback.version>
