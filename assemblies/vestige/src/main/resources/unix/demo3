@@ -57,10 +57,14 @@ fi
 LOGBACK_LOGS_DIRECTORY="$VESTIGE_CACHE/logs"
 
 VESTIGE_OPTS=("${VESTIGE_OPTS[@]}" -Dvestige.mavenRepository="$DATADIR/repository" -Djava.util.logging.manager=fr.gaellalire.vestige.core.logger.JULLogManager)
+if [[ "$OSTYPE" =~ ^darwin ]]; then
+  VESTIGE_OPTS=("${VESTIGE_OPTS[@]}" -XstartOnFirstThread) 
+fi
 
 export VESTIGE_CORE_RELATIVE_DIRECTORY="$DATADIR"
 
 export VESTIGE_SAL_APP_FILE="$DATADIR/demo3.xml"
+export VESTIGE_SAL_APP_LOCAL_NAME="demo3"
 
 if "$JAVA" --add-modules java.base -version >/dev/null 2>&1; then
   export VESTIGE_CORE_MODULEPATH_FILE="$DATADIR/unix-classpath.txt"

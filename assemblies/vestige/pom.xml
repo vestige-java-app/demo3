@@ -16,6 +16,11 @@
         <artifactId>logback-core</artifactId>
         <version>1.2.3.1</version>
       </dependency>
+      <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>1.4</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   <build>
@@ -148,13 +153,13 @@
     <dependency>
       <groupId>${vestige.groupId}</groupId>
       <artifactId>vestige.logback_enhancer</artifactId>
-      <version>1.0</version>
+      <version>1.1</version>
     </dependency>
   </dependencies>
   <properties>
     <vestige.groupId>fr.gaellalire.vestige</vestige.groupId>
     <vestige.version>9.0.1-SNAPSHOT</vestige.version>
-    <vestige.jvm_enhancer.version>4.1</vestige.jvm_enhancer.version>
+    <vestige.jvm_enhancer.version>4.2</vestige.jvm_enhancer.version>
     <vestige.jpms.version>2.0</vestige.jpms.version>
     <slf4j.version>1.7.25</slf4j.version>
     <logback.version>1.2.3</logback.version>

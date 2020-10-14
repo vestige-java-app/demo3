@@ -7,7 +7,7 @@
   <packaging>pom</packaging>
   <name>Demo3</name>
   <properties>
-    <vestige.core.version>8</vestige.core.version>
+    <vestige.core.version>9</vestige.core.version>
   </properties>
   <dependencyManagement>
     <dependencies>
