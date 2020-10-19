@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://gaellalire.fr/vestige/APPLICATION" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://gaellalire.fr/vestige/APPLICATION http://gaellalire.fr/vestige/application-2.0.0.xsd"
+  javaSpecificationVersion="1.6">
+  <launcher class="fr.gaellalire.vestige_app.demo3.mod1.Mod1" >
+    <mavenResolver mode="FIXED_DEPENDENCIES" groupId="fr.gaellalire.vestige_app.demo3" artifactId="demo3.mod1" version="1.0.0">
+       <activateNamedModules />
+    </mavenResolver>
+    <inject serviceClassName="fr.gaellalire.vestige.spi.resolver.maven.VestigeMavenResolver" setterName="setMavenResolver"/>
+  </launcher>
+  <configurations>
+    <permissions>    
+      <permission type="java.util.PropertyPermission" name="*" actions="read,write" />
+      <permission type="java.lang.RuntimePermission" name="getenv.*" />
+      <permission type="java.lang.RuntimePermission" name="loadLibrary.*" />
+      <permission type="java.lang.RuntimePermission" name="shutdownHooks" />
+      <permission type="java.io.FilePermission" name="${user.home}${/}.swt" actions="read,write,delete" />
+      <permission type="java.io.FilePermission" name="${user.home}${/}.swt${/}-" actions="read,write,delete" />
+    </permissions>
+    <mavenConfig>
+      <additionalRepository id="gaellalire-repo" url="https://gaellalire.fr/maven/repository/" />
+    </mavenConfig>
+  </configurations>
+</application>

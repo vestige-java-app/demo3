@@ -41,6 +41,12 @@ public class Mod1 implements Callable<Void> {
 	public Void call() throws Exception {
 		
 		System.out.println("mod1");
+		
+		try {
+			System.exit(0);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 
 		long time = System.currentTimeMillis();
 
@@ -53,11 +59,14 @@ public class Mod1 implements Callable<Void> {
         String modToLoad = null;
         File cacheModFile = null;
         String className = null;
+        String pluginName = null;
         if (mac) {
+        	pluginName = "mod2-plugin";
         	modToLoad = "demo3.mod2";
         	cacheModFile = new File(data, "mod2.data");
         	className = "fr.gaellalire.vestige_app.demo3.mod2.Mod2";
         } else if (!windows) {
+        	pluginName = "mod3-plugin";
         	modToLoad = "demo3.mod3";
         	cacheModFile = new File(data, "mod3.data");
         	className = "fr.gaellalire.vestige_app.demo3.mod3.Mod3";
@@ -86,7 +95,7 @@ public class Mod1 implements Callable<Void> {
 			String version = demo3Properties.getProperty("version");
 			CreateClassLoaderConfigurationRequest createClassLoaderConfiguration = mavenContextBuilder.build()
 					.resolve("fr.gaellalire.vestige_app.demo3", modToLoad, version).execute(DummyJobHelper.INSTANCE)
-					.createClassLoaderConfiguration("mod2-plugin", ResolveMode.FIXED_DEPENDENCIES, Scope.PLATFORM);
+					.createClassLoaderConfiguration(pluginName, ResolveMode.FIXED_DEPENDENCIES, Scope.PLATFORM);
 			createClassLoaderConfiguration.setNamedModuleActivated(true);
 			classLoaderConfiguration = createClassLoaderConfiguration.execute();
 
@@ -106,6 +115,7 @@ public class Mod1 implements Callable<Void> {
 					.loadClass(className).getConstructor().newInstance();
 			p.doSomething();
 		} finally {
+			System.out.println("finally in mod1");
 			attach.detach();
 		}
 		return null;

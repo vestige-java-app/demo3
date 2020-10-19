@@ -28,23 +28,31 @@ export VESTIGE_CONFIG="$DIRNAME/config"
 export VESTIGE_DATA="$DIRNAME/data"
 export VESTIGE_CACHE="$DIRNAME/cache"
 
-if [ ${#VESTIGE_OPTS[@]} -eq 0 ]; then
-  VESTIGE_OPTS=($JAVA_OPTS)
+if [ "$VESTIGE_SECURITY" = "" ]; then
+  VESTIGE_SECURITY=true
 fi
 
-if [ ${#VESTIGE_DEBUG} -ne 0 ]; then
-  if [ "$VESTIGE_DEBUG_SUSPEND" = "" ]; then
-    VESTIGE_DEBUG_SUSPEND="n"
+DECLARE_DEMO3_OPTS=$(echo "$DECLARE_DEMO3_OPTS" | grep "^declare -a DEMO3_OPTS=")
+if [ "${#DECLARE_DEMO3_OPTS}" -ne 0 ]; then
+  eval "$DECLARE_DEMO3_OPTS" >/dev/null 2>&1 || DEMO3_OPTS=($JAVA_OPTS)
+else
+  DEMO3_OPTS=($JAVA_OPTS)
+fi
+
+
+if [ ${#DEMO3_DEBUG} -ne 0 ]; then
+  if [ "$DEMO3_DEBUG_SUSPEND" = "" ]; then
+    DEMO3_DEBUG_SUSPEND="n"
   fi
-  if [ "$VESTIGE_DEBUG_PORT" = "" ]; then
-    VESTIGE_DEBUG_PORT="8000"
+  if [ "$DEMO3_DEBUG_PORT" = "" ]; then
+    DEMO3_DEBUG_PORT="8000"
   fi
-  VESTIGE_OPTS=("${VESTIGE_OPTS[@]}" -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=${VESTIGE_DEBUG_SUSPEND},address=${VESTIGE_DEBUG_PORT})
+  DEMO3_OPTS=("${DEMO3_OPTS[@]}" -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=${DEMO3_DEBUG_SUSPEND},address=${DEMO3_DEBUG_PORT})
 fi
 
 export MAVEN_LAUNCHER_FILE="$DATADIR/m2/vestige-sal.xml"
 
-export MAVEN_SETTINGS_FILE="$VESTIGE_BASE/m2/settings.xml"
+export MAVEN_SETTINGS_FILE="$VESTIGE_CONFIG/m2/settings.xml"
 
 export MAVEN_RESOLVER_CACHE_FILE="$VESTIGE_DATA/m2/resolver-cache.ser"
 
@@ -56,9 +64,9 @@ fi
 
 LOGBACK_LOGS_DIRECTORY="$VESTIGE_CACHE/logs"
 
-VESTIGE_OPTS=("${VESTIGE_OPTS[@]}" -Dvestige.mavenRepository="$DATADIR/repository" -Djava.util.logging.manager=fr.gaellalire.vestige.core.logger.JULLogManager)
+DEMO3_OPTS=("${DEMO3_OPTS[@]}" -Dvestige.mavenRepository="$DATADIR/repository" -Djava.util.logging.manager=fr.gaellalire.vestige.core.logger.JULLogManager)
 if [[ "$OSTYPE" =~ ^darwin ]]; then
-  VESTIGE_OPTS=("${VESTIGE_OPTS[@]}" -XstartOnFirstThread) 
+  DEMO3_OPTS=("${DEMO3_OPTS[@]}" -XstartOnFirstThread) 
 fi
 
 export VESTIGE_CORE_RELATIVE_DIRECTORY="$DATADIR"
@@ -68,19 +76,19 @@ export VESTIGE_SAL_APP_LOCAL_NAME="demo3"
 
 if "$JAVA" --add-modules java.base -version >/dev/null 2>&1; then
   export VESTIGE_CORE_MODULEPATH_FILE="$DATADIR/unix-classpath.txt"
-  VESTIGE_OPTS=("${VESTIGE_OPTS[@]}" --add-modules ALL-DEFAULT --patch-module "java.base=$DATADIR/lib/moduleEncapsulationBreaker.jar")
-  VESTIGE_ARGS=(-p "$DATADIR/lib/vestige.core-${vestige.core.version}.jar" -m fr.gaellalire.vestige.core --env-to-prop LOGBACK_LOGS_DIRECTORY logback.logsDirectory --env-to-prop LOGBACK_CONFIGURATION_FILE logback.configurationFile --add-modules fr.gaellalire.vestige.jvm_enhancer.boot,fr.gaellalire.vestige.edition.maven_main_launcher emp fr.gaellalire.vestige.logback_enhancer)
-  VESTIGE_ARGS=("${VESTIGE_ARGS[@]}" fr.gaellalire.vestige.jvm_enhancer.boot)
-  VESTIGE_ARGS=("${VESTIGE_ARGS[@]}" "$DATADIR" "$DATADIR/jvm_enhancer.properties" fr.gaellalire.vestige.edition.maven_main_launcher)
+  DEMO3_OPTS=("${DEMO3_OPTS[@]}" --add-modules ALL-DEFAULT --patch-module "java.base=$DATADIR/lib/moduleEncapsulationBreaker.jar")
+  DEMO3_ARGS=(-p "$DATADIR/lib/vestige.core-${vestige.core.version}.jar" -m fr.gaellalire.vestige.core --env-to-prop LOGBACK_LOGS_DIRECTORY logback.logsDirectory --env-to-prop LOGBACK_CONFIGURATION_FILE logback.configurationFile --add-modules fr.gaellalire.vestige.jvm_enhancer.boot,fr.gaellalire.vestige.edition.maven_main_launcher emp fr.gaellalire.vestige.logback_enhancer)
+  DEMO3_ARGS=("${DEMO3_ARGS[@]}" fr.gaellalire.vestige.jvm_enhancer.boot)
+  DEMO3_ARGS=("${DEMO3_ARGS[@]}" "$DATADIR" "$DATADIR/jvm_enhancer.properties" fr.gaellalire.vestige.edition.maven_main_launcher)
 else
   export VESTIGE_CORE_CLASSPATH_FILE="$DATADIR/unix-classpath.txt"
-  VESTIGE_ARGS=(-jar "$DATADIR/lib/vestige.core-${vestige.core.version}.jar" --env-to-prop LOGBACK_LOGS_DIRECTORY logback.logsDirectory --env-to-prop LOGBACK_CONFIGURATION_FILE logback.configurationFile --before 'javax/xml/bind/.*' ecp fr.gaellalire.vestige.logback_enhancer.LogbackEnhancer)
-  VESTIGE_ARGS=("${VESTIGE_ARGS[@]}" fr.gaellalire.vestige.jvm_enhancer.boot.JVMEnhancer)
-  VESTIGE_ARGS=("${VESTIGE_ARGS[@]}" "$DATADIR" "$DATADIR/jvm_enhancer.properties" fr.gaellalire.vestige.edition.maven_main_launcher.MavenMainLauncher)
+  DEMO3_ARGS=(-jar "$DATADIR/lib/vestige.core-${vestige.core.version}.jar" --env-to-prop LOGBACK_LOGS_DIRECTORY logback.logsDirectory --env-to-prop LOGBACK_CONFIGURATION_FILE logback.configurationFile --before 'javax/xml/bind/.*' ecp fr.gaellalire.vestige.logback_enhancer.LogbackEnhancer)
+  DEMO3_ARGS=("${DEMO3_ARGS[@]}" fr.gaellalire.vestige.jvm_enhancer.boot.JVMEnhancer)
+  DEMO3_ARGS=("${DEMO3_ARGS[@]}" "$DATADIR" "$DATADIR/jvm_enhancer.properties" fr.gaellalire.vestige.edition.maven_main_launcher.MavenMainLauncher)
 fi
 
-VESTIGE_ARGS=("${VESTIGE_ARGS[@]}")
+DEMO3_ARGS=("${DEMO3_ARGS[@]}")
 
 export LOGBACK_CONFIGURATION_FILE LOGBACK_LOGS_DIRECTORY
 
-exec "$JAVA" "${VESTIGE_OPTS[@]}" "${VESTIGE_ARGS[@]}"
+exec "$JAVA" "${DEMO3_OPTS[@]}" "${DEMO3_ARGS[@]}"
