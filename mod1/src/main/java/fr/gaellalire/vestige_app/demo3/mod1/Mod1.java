@@ -89,7 +89,7 @@ public class Mod1 implements Callable<Void> {
 		if (classLoaderConfiguration == null) {
 			MavenContextBuilder mavenContextBuilder = mavenResolver.createMavenContextBuilder();
 			mavenContextBuilder.addAdditionalRepository("gaellalire-repo", null,
-					"https://gaellalire.fr/nexus/content/repositories/releases/");
+					"https://gaellalire.fr/maven/repository/");
 			Properties demo3Properties = new Properties();
 			demo3Properties.load(Mod1.class.getResourceAsStream("demo3.properties"));
 			String version = demo3Properties.getProperty("version");
