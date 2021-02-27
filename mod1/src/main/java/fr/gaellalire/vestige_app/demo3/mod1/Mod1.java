@@ -67,7 +67,13 @@ public class Mod1 implements Callable<Void> {
             modToLoad = "demo3.mod2";
             cacheModFile = new File(data, "mod2.data");
             className = "fr.gaellalire.vestige_app.demo3.mod2.Mod2";
-        } else if (!windows) {
+        } else if (windows) {
+            pluginName = "mod4-plugin";
+            modToLoad = "demo3.mod4";
+            cacheModFile = new File(data, "mod4.data");
+            className = "fr.gaellalire.vestige_app.demo3.mod4.Mod4";
+        } else {
+            // linux
             pluginName = "mod3-plugin";
             modToLoad = "demo3.mod3";
             cacheModFile = new File(data, "mod3.data");

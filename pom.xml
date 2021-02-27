@@ -42,6 +42,7 @@
     <module>mod1</module>
     <module>mod2</module>
     <module>mod3</module>
+    <module>mod4</module>
     <module>assemblies</module>
   </modules>
   <profiles>

@@ -6,7 +6,7 @@
       <addReads source="fr.gaellalire.vestige.application.descriptor.xml"  target="javax.runtime" />
     </activateNamedModules>
   </launch>
-  <config superPomRepositoriesUsed="false" pomRepositoriesIgnored="true">
+  <config superPomRepositoriesIgnored="true" pomRepositoriesIgnored="true">
     <modifyDependency artifactId="vestige.system" groupId="fr.gaellalire.vestige">
       <addOpens module="java.logging" package="java.util.logging" />
       <addOpens module="java.base" package="java.security" />
