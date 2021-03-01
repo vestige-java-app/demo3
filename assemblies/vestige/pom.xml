@@ -158,12 +158,13 @@
   </dependencies>
   <properties>
     <vestige.groupId>fr.gaellalire.vestige</vestige.groupId>
-    <vestige.version>10.0.2</vestige.version>
+    <vestige.version>10.1.0</vestige.version>
     <vestige.jvm_enhancer.version>4.2</vestige.jvm_enhancer.version>
     <vestige.jpms.version>2.0</vestige.jpms.version>
     <slf4j.version>1.7.25</slf4j.version>
     <logback.version>1.2.3</logback.version>
     <proxy_vole.version>java6-3</proxy_vole.version>
+    <at>@</at>
   </properties>
   <pluginRepositories>
     <pluginRepository>
