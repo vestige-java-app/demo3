@@ -9,8 +9,8 @@ Run `mvn clean install` using a JDK 8 or before
 ## Installation
 
 Unzip one of the :
--  assemblies/vestige/target/demo3.assemblies.vestige-1.0.0-unix.zip
--  assemblies/vestige/target/demo3.assemblies.vestige-1.0.0-windows.zip
+-  [assemblies/vestige/target/demo3.assemblies.vestige-1.0.0-unix.zip](https://gaellalire.fr/vestige/app/demo3/demo3.assemblies.vestige-1.0.0-unix.zip)
+-  [assemblies/vestige/target/demo3.assemblies.vestige-1.0.0-windows.zip](https://gaellalire.fr/vestige/app/demo3/demo3.assemblies.vestige-1.0.0-unix.zip)
 
 ## Run
 
