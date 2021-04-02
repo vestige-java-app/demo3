@@ -35,5 +35,9 @@
       <groupId>fr.gaellalire.vestige</groupId>
       <artifactId>vestige.spi.resolver.maven</artifactId>
     </dependency>
+    <dependency>
+      <groupId>fr.gaellalire.vestige</groupId>
+      <artifactId>vestige.spi.trust</artifactId>
+    </dependency>
   </dependencies>
 </project>

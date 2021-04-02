@@ -1,8 +1,11 @@
 package fr.gaellalire.vestige_app.demo3.mod1;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Properties;
@@ -16,8 +19,14 @@ import fr.gaellalire.vestige.spi.resolver.maven.CreateClassLoaderConfigurationRe
 import fr.gaellalire.vestige.spi.resolver.maven.MavenContextBuilder;
 import fr.gaellalire.vestige.spi.resolver.maven.ResolveMode;
 import fr.gaellalire.vestige.spi.resolver.maven.VestigeMavenResolver;
+import fr.gaellalire.vestige.spi.trust.Signature;
+import fr.gaellalire.vestige.spi.trust.TrustSystemAccessor;
 
 public class Mod1 implements Callable<Void> {
+    
+    private static boolean trustedPlugin = false;
+    
+    private TrustSystemAccessor trustSystemAccessor;
 
     private VestigeMavenResolver mavenResolver;
 
@@ -34,6 +43,10 @@ public class Mod1 implements Callable<Void> {
         this.data = data;
         this.cache = cache;
     }
+    
+    public void setTrustSystemAccessor(TrustSystemAccessor trustSystemAccessor) {
+        this.trustSystemAccessor = trustSystemAccessor;
+    }
 
     public void setMavenResolver(final VestigeMavenResolver mavenResolver) {
         this.mavenResolver = mavenResolver;
@@ -45,6 +58,7 @@ public class Mod1 implements Callable<Void> {
         System.out.println("mod1");
 
         try {
+            // test that security is enabled
             System.exit(0);
         } catch (Throwable e) {
             e.printStackTrace();
@@ -113,8 +127,35 @@ public class Mod1 implements Callable<Void> {
                 objectOutputStream.close();
             }
         }
+        
+        AttachedClassLoader attach;
+        if (trustedPlugin) {
+            // example of signature check. Need a way to generate mod2.ver with a maven plugin.
+            // also need to separate Plugin class from Mod1, so that Mod1 is build after other plugins (Mod2 & 3 & 4).
+            StringBuilder stringBuilder = new StringBuilder();
+            BufferedReader br = new BufferedReader(new InputStreamReader(Mod1.class.getResourceAsStream("mod2.ver")));
+            String readLine = br.readLine();
+            while (readLine != null) {
+                stringBuilder.append(readLine);
+                stringBuilder.append('\n');
+                readLine = br.readLine();
+            }
+            String metadata = stringBuilder.toString();
 
-        AttachedClassLoader attach = classLoaderConfiguration.attach();
+            Signature signature = trustSystemAccessor.getPGPTrustSystem().loadSignature(Mod1.class.getResourceAsStream("mod2.ver.sig"));
+            if (signature.getPublicPart().isTrusted()) {
+                if (signature.verify(new ByteArrayInputStream(metadata.getBytes()))) {
+                    System.out.println("Signature OK");
+                } else {
+                    System.out.println("Signature KO");
+                }
+            } else {
+                System.out.println("Not trusted");
+            }
+            attach = classLoaderConfiguration.verifiedAttach(metadata);
+        } else {
+            attach = classLoaderConfiguration.attach();
+        }
         try {
             Plugin p = (Plugin) attach.getAttachableClassLoader().getClassLoader().loadClass(className).getConstructor().newInstance();
             p.doSomething();
