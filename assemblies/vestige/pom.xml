@@ -112,7 +112,7 @@
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>demo3.mod1</artifactId>
+      <artifactId>demo3.modm</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>

@@ -2,11 +2,12 @@
 <application xmlns="http://gaellalire.fr/vestige/APPLICATION" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://gaellalire.fr/vestige/APPLICATION http://gaellalire.fr/vestige/application-2.0.0.xsd"
   javaSpecificationVersion="1.6">
-  <launcher class="fr.gaellalire.vestige_app.demo3.mod1.Mod1" >
-    <mavenResolver mode="FIXED_DEPENDENCIES" groupId="fr.gaellalire.vestige_app.demo3" artifactId="demo3.mod1" version="1.0.0">
+  <launcher class="fr.gaellalire.vestige_app.demo3.modm.ModM" >
+    <mavenResolver mode="FIXED_DEPENDENCIES" groupId="fr.gaellalire.vestige_app.demo3" artifactId="demo3.modm" version="1.0.0">
        <activateNamedModules />
     </mavenResolver>
     <inject serviceClassName="fr.gaellalire.vestige.spi.resolver.maven.VestigeMavenResolver" setterName="setMavenResolver"/>
+    <inject serviceClassName="fr.gaellalire.vestige.spi.trust.TrustSystemAccessor" setterName="setTrustSystemAccessor"/>
   </launcher>
   <configurations>
     <permissions>    

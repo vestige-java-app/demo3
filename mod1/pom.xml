@@ -25,19 +25,4 @@
       </resource>
     </resources>
   </build>
-  <dependencies>
-    <dependency>
-      <groupId>fr.gaellalire.vestige</groupId>
-      <artifactId>vestige.core</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>fr.gaellalire.vestige</groupId>
-      <artifactId>vestige.spi.resolver.maven</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>fr.gaellalire.vestige</groupId>
-      <artifactId>vestige.spi.trust</artifactId>
-    </dependency>
-  </dependencies>
 </project>

@@ -32,7 +32,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.6.2</version>
+        <version>3.7.0</version>
         <configuration>
           <source>1.6</source>
           <target>1.6</target>
@@ -48,6 +48,7 @@
     <module>mod2</module>
     <module>mod3</module>
     <module>mod4</module>
+    <module>modm</module>
     <module>assemblies</module>
   </modules>
   <profiles>
